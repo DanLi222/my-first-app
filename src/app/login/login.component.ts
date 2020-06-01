@@ -21,7 +21,8 @@ export class LoginComponent implements OnInit {
   }
   signInWithFB(): void {
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID)
-                    .then((userData) => {
+                    .then((user) => {
+                      localStorage.setItem('user', JSON.stringify(user));
                       this.router.navigate(['/dashboard']);
                     });
   }
