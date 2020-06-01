@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService, FacebookLoginProvider, SocialUser} from 'angularx-social-login';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,27 +10,20 @@ import {AuthService, FacebookLoginProvider, SocialUser} from 'angularx-social-lo
 })
 export class LoginComponent implements OnInit {
   signinForm: FormGroup;
-  user: SocialUser;
-  loggedIn: boolean;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) { }
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.signinForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
     });
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      this.loggedIn = (user != null);
-      console.log(this.user);
-    });
   }
   signInWithFB(): void {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
-  }
-  signOut(): void {
-    this.authService.signOut();
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID)
+                    .then((userData) => {
+                      this.router.navigate(['/dashboard']);
+                    });
   }
 
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService, SocialUser} from 'angularx-social-login';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,10 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  user: SocialUser;
+  loggedIn: boolean;
 
-  constructor() { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      this.loggedIn = (user != null);
+      console.log(this.user);
+    });
   }
 
+  signOut(): void {
+    this.authService.signOut().then(success => this.router.navigate(['/login']));
+  }
 }
