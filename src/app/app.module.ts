@@ -8,15 +8,22 @@ import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'ang
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 
-const config = new AuthServiceConfig([
-  {
-    id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider('621798038420170')
-  }
-]);
-export function provideConfig() {
-  return config;
+import { JwtModule } from '@auth0/angular-jwt';
+import { HttpClientModule } from '@angular/common/http';
+
+export function tokenGetter() {
+  return localStorage.getItem('id_token');
 }
+
+// const config = new AuthServiceConfig([
+//   {
+//     id: FacebookLoginProvider.PROVIDER_ID,
+//     provider: new FacebookLoginProvider('621798038420170')
+//   }
+// ]);
+// export function provideConfig() {
+//   return config;
+// }
 
 @NgModule({
   declarations: [
@@ -28,13 +35,21 @@ export function provideConfig() {
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    SocialLoginModule
+    SocialLoginModule,
+    HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter,
+        headerName: 'x-auth-token'
+
+      }
+    })
   ],
   providers: [
-    {
-      provide: AuthServiceConfig,
-      useFactory: provideConfig
-    }
+    // {
+    //   provide: AuthServiceConfig,
+    //   useFactory: provideConfig
+    // }
   ],
   bootstrap: [AppComponent]
 })
