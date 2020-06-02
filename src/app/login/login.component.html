@@ -1,0 +1,31 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body class="bg-light">
+<div class="container">
+  <div class="row py-5 justify-content-center">
+    <div class="col-md-8">
+      <h1 class="text-center py-4">Sign In with Facebook in Angular 8</h1>
+      <div>
+        <form [formGroup]="signinForm">
+          <label for="email">Email</label>
+          <input type="text" class="form-control" id="email" formControlName="email">
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" formControlName="password" >
+          </div>
+        </form>
+        <div>
+          <p>Or</p>
+        </div>
+        <div>
+          <button type="button" (click)="signInWithFB()" class="btn btn-primary">Sign In With Facebook</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
