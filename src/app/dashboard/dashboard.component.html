@@ -1,16 +1,4 @@
-<div>
-  <div class="form-group">
-    <label for="firstname">First Name</label>
-    <input type="text" class="form-control" id="firstname" [value]="user.firstName" readonly >
-  </div>
-  <div class="form-group">
-    <label for="lastname">Last Name</label>
-    <input type="text" class="form-control" id="lastname" [value]="user.lastName" readonly >
-  </div>
-  <div class="form-group">
-    <label for="email2">Email</label>
-    <input type="text" class="form-control" id="email2" [value]="user.email" readonly >
-  </div>
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="#" >{{user.name}}</a>
+</nav>
 
-  <button type="button" (click)="signOut()" class="btn btn-primary">Sign Out</button>
-</div>
