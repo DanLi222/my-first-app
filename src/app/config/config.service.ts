@@ -8,10 +8,10 @@ export class ConfigService {
   constructor(private http: HttpClient) { }
 
   fetchData(): Observable<object> {
-    return this.http.get('https://api.covid19api.com/');
+    return this.http.get('https://api.covid19api.com/world/total');
   }
 
   fetchCountries(): Observable<object> {
-    return this.http.get('https://api.covid19api.com/countries');
+    return this.http.get('https://api.covid19api.com/summary');
   }
 }

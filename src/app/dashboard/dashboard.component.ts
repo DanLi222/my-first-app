@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService, SocialUser } from 'angularx-social-login';
 import { Router } from '@angular/router';
 import { ConfigService } from '../config/config.service';
+import * as CanvasJS from '../canvasjs.min';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,8 +13,8 @@ export class DashboardComponent implements OnInit {
   user: SocialUser;
   loggedIn: boolean;
   data$;
-  mapData$;
-  countries$;
+  global$;
+  topCountries$;
 
   constructor(
     private authService: AuthService,
@@ -27,33 +28,57 @@ export class DashboardComponent implements OnInit {
       console.log('user dashboard name: ' + user.name);
       this.loggedIn = (user != null);
     });
+
+    this.configService.fetchData()
+        .subscribe( res => {
+          console.log('data ' + JSON.stringify(res));
+          this.data$ = res;
+      });
+
+    this.configService.fetchCountries()
+        .subscribe((res: any) => {
+          this.global$ = res.Global;
+          this.topCountries$ = res.Countries.sort((a, b) => {
+            return a.TotalConfirmed < b.TotalConfirmed ? 1 : -1;
+          }).slice(0, 10);
+          // const countrynumbers = [];
+          // for (const country of this.topCountries$) {
+          //   countrynumbers.push(
+          //     {
+          //       y: country.TotalConfirmed,
+          //       label: country.Country
+          //     }
+          //   );
+          // }
+
+          const chart = new CanvasJS.Chart('chartContainer', {
+            animationEnabled: true,
+            exportEnabled: true,
+            title: {
+              text: 'Top 10 Countries'
+            },
+            data: [{
+              type: 'column',
+              dataPoints: [
+                { y: this.topCountries$[0].TotalConfirmed, label: this.topCountries$[0].Country },
+                { y: this.topCountries$[1].TotalConfirmed, label: this.topCountries$[1].Country },
+                { y: this.topCountries$[2].TotalConfirmed, label: this.topCountries$[2].Country },
+                { y: this.topCountries$[3].TotalConfirmed, label: this.topCountries$[3].Country },
+                { y: this.topCountries$[4].TotalConfirmed, label: this.topCountries$[4].Country },
+                { y: this.topCountries$[5].TotalConfirmed, label: this.topCountries$[5].Country },
+                { y: this.topCountries$[6].TotalConfirmed, label: this.topCountries$[6].Country },
+                { y: this.topCountries$[7].TotalConfirmed, label: this.topCountries$[7].Country },
+                { y: this.topCountries$[8].TotalConfirmed, label: this.topCountries$[8].Country },
+                { y: this.topCountries$[9].TotalConfirmed, label: this.topCountries$[9].Country }
+              ]
+            }]
+          });
+          chart.render();
+        });
   }
 
   signOut(): void {
     this.authService.signOut().then(success => this.router.navigate(['/login']));
   }
 
-  fetchData() {
-    this.data$ = this.configService.fetchData()
-      .subscribe( res => {
-      this.data$ = res;
-        console.log('data ' + JSON.stringify(res));
-      this.mapData$ = Object.keys(this.data$)
-                            .map(key => ({type: key, value: this.data$[key]}));
-      console.log('mapData' + JSON.stringify(this.mapData$));
-      console.log(this.mapData$);
-    });
-  }
-
-  fetchCountries() {
-    this.countries$ = this.configService.fetchCountries()
-      .subscribe(res => {
-        console.log(res);
-        console.log('res' + res);
-        this.countries$ = res;
-        // this.countries$ = Object.keys(res)
-        //                         .map(key => ({type: key, value: this.data$[key]}));
-        // console.log('countries: ' + JSON.stringify(this.countries$));
-      });
-  }
 }
