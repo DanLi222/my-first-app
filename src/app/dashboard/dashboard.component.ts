@@ -8,8 +8,13 @@ import * as CanvasJS from '../canvasjs.min';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  global$;
+  global$: {
+    totalConfirmed,
+    totalDeath,
+    totalRecovered
+  };
   topCountries$;
+  error;
 
   constructor(
     private configService: ConfigService
@@ -19,18 +24,34 @@ export class DashboardComponent implements OnInit {
     this.showGlobal();
   }
 
+  /**
+   *  Show overall data
+   */
   showGlobal() {
     this.configService.fetchCountries()
       .subscribe((res: any) => {
-        this.global$ = res.Global;
+        // Populate global object
+        this.global$ = {
+          totalConfirmed: res.Global.TotalConfirmed,
+          totalDeath: res.Global.TotalDeaths,
+          totalRecovered: res.Global.TotalRecovered
+        };
+        // Get top 10 countries
         this.topCountries$ = res.Countries.sort((a, b) => {
           return a.TotalConfirmed < b.TotalConfirmed ? 1 : -1;
         }).slice(0, 10);
         this.showCountries();
+      }, err => {
+        this.error = err;
       });
+
   }
 
+  /**
+   *  Show top 10 countries data
+   */
   showCountries() {
+    // Prepare data points
     const countrynumbers = [];
     for (const country of this.topCountries$) {
       countrynumbers.push(
@@ -40,6 +61,7 @@ export class DashboardComponent implements OnInit {
         }
       );
     }
+    // Create chart using CanvasJS
     const chart = new CanvasJS.Chart('chartContainer', {
       animationEnabled: true,
       exportEnabled: true,
@@ -53,5 +75,4 @@ export class DashboardComponent implements OnInit {
     });
     chart.render();
   }
-
 }
