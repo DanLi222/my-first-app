@@ -17,8 +17,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import {MatGridListModule} from '@angular/material/grid-list';
-import {MatCardModule} from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
+import { ConfigComponent } from './config/config.component';
 
 const config = new AuthServiceConfig([
   {
@@ -35,7 +36,8 @@ export function provideConfig() {
     AppComponent,
     DashboardComponent,
     LoginComponent,
-    NavMenuComponent
+    NavMenuComponent,
+    ConfigComponent
   ],
   imports: [
     BrowserModule,
