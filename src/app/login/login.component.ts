@@ -18,11 +18,22 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.createSignInForm();
+  }
+
+  /**
+   * Create sign in form
+   */
+  createSignInForm(): void {
     this.signinForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
+
+  /**
+   * Handle user sign in and store user info in local storage
+   */
   signInWithFB(): void {
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID)
                     .then((user) => {
@@ -30,7 +41,5 @@ export class LoginComponent implements OnInit {
                       this.router.navigate(['/dashboard']);
                     });
   }
-  signOut(): void {
-    this.authService.signOut().then(success => this.router.navigate(['/login']));
-  }
+
 }

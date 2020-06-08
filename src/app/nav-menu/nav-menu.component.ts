@@ -27,6 +27,9 @@ export class NavMenuComponent implements OnInit {
     this.getUser();
   }
 
+  /**
+   * Access user info from local storage
+   */
   getUser() {
     this.authService.authState.subscribe((user) => {
       this.user = JSON.parse(localStorage.getItem('user'));
