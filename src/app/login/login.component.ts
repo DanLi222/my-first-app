@@ -11,7 +11,11 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   signinForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { }
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.signinForm = this.fb.group({
@@ -26,5 +30,7 @@ export class LoginComponent implements OnInit {
                       this.router.navigate(['/dashboard']);
                     });
   }
-
+  signOut(): void {
+    this.authService.signOut().then(success => this.router.navigate(['/login']));
+  }
 }

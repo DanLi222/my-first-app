@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService, SocialUser } from 'angularx-social-login';
-import { Router } from '@angular/router';
 import { ConfigService } from '../config/config.service';
 import * as CanvasJS from '../canvasjs.min';
 
@@ -10,21 +8,16 @@ import * as CanvasJS from '../canvasjs.min';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  user: SocialUser;
-  loggedIn: boolean;
   data$;
   global$;
   topCountries$;
 
   constructor(
-    private authService: AuthService,
-    private router: Router,
     private configService: ConfigService
   ) { }
 
   ngOnInit(): void {
-
-
+    
     this.configService.fetchData()
         .subscribe( res => {
           console.log('data ' + JSON.stringify(res));
@@ -73,8 +66,6 @@ export class DashboardComponent implements OnInit {
         });
   }
 
-  signOut(): void {
-    this.authService.signOut().then(success => this.router.navigate(['/login']));
-  }
+
 
 }
