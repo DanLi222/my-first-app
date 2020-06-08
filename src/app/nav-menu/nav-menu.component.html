@@ -21,6 +21,8 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>my-first-app</span>
+      <span class="example-fill-remaining-space"></span>
+      <span>{{user ? user.name : ""}}</span>
     </mat-toolbar>
     <!-- Add Content Here -->
     <router-outlet></router-outlet>

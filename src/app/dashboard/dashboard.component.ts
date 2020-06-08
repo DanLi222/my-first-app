@@ -23,11 +23,7 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.authService.authState.subscribe((user) => {
-      this.user = JSON.parse(localStorage.getItem('user'));
-      console.log('user dashboard name: ' + user.name);
-      this.loggedIn = (user != null);
-    });
+
 
     this.configService.fetchData()
         .subscribe( res => {
