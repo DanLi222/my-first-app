@@ -17,8 +17,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import {MatGridListModule} from '@angular/material/grid-list';
-import {MatCardModule} from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
+import { CountryComponent } from './country/country.component';
+import { CountrydetailComponent } from './countrydetail/countrydetail.component';
+import { RouterModule } from '@angular/router';
 
 const config = new AuthServiceConfig([
   {
@@ -26,6 +29,7 @@ const config = new AuthServiceConfig([
     provider: new FacebookLoginProvider('621798038420170')
   }
 ]);
+
 export function provideConfig() {
   return config;
 }
@@ -35,7 +39,9 @@ export function provideConfig() {
     AppComponent,
     DashboardComponent,
     LoginComponent,
-    NavMenuComponent
+    NavMenuComponent,
+    CountryComponent,
+    CountrydetailComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +57,8 @@ export function provideConfig() {
     MatIconModule,
     MatListModule,
     MatGridListModule,
-    MatCardModule
+    MatCardModule,
+    RouterModule
   ],
   providers: [
     ConfigService,

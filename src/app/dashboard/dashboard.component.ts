@@ -21,14 +21,14 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.showGlobal();
+    this.showSummary();
   }
 
   /**
    *  Show overall data
    */
-  showGlobal() {
-    this.configService.fetchCountries()
+  showSummary() {
+    this.configService.getSummary()
       .subscribe((res: any) => {
         // Populate global object
         this.global$ = {

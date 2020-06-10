@@ -5,8 +5,8 @@ import { catchError, retry } from 'rxjs/operators';
 
 @Injectable()
 export class ConfigService {
-  url = 'https://api.covid19api.com/summary';
-
+  summaryUrl = 'https://api.covid19api.com/summary';
+  countryUrl = 'https://api.covid19api.com/countries';
   constructor(private http: HttpClient) { }
 
   /**
@@ -26,10 +26,20 @@ export class ConfigService {
   }
 
   /**
-   * Do api get call
+   * Do api get call for a overall of the globe
    */
-  fetchCountries(): Observable<object> {
-    return this.http.get(this.url)
+  getSummary(): Observable<object> {
+    return this.http.get(this.summaryUrl)
+      .pipe(
+        catchError(ConfigService.handleError)
+      );
+  }
+
+  /**
+   * Do api call for country list
+   */
+  getCountries(): Observable<object> {
+    return this.http.get(this.countryUrl)
       .pipe(
         catchError(ConfigService.handleError)
       );

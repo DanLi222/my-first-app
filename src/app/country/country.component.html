@@ -1,0 +1,20 @@
+<div>
+  <a *ngFor="let letter of list" (click)="gotoAnchor(letter)" routerLink="." [fragment]='letter' class="css-6sf6h4" data-comp="Link Box ">{{letter}}</a>
+</div>
+<div *ngFor="let id of list" id="{{id}}">
+  {{id}}
+  <mat-list>
+    <mat-list-item >
+      {{getCountries(id)}}
+    </mat-list-item>
+  </mat-list>
+
+</div>
+
+<!--<mat-list *ngFor="let country of countries" >-->
+<!--  <mat-list-item >-->
+<!--    <p *ngIf="country.Country.charAt(0)=='A'" [routerLink]="['/country', country.Country]" >{{country.Country}}</p>-->
+<!--  </mat-list-item>-->
+<!--</mat-list>-->
+
+
