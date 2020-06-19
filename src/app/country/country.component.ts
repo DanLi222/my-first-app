@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {ConfigService} from '../config/config.service';
-import {ActivatedRoute, Route, Router} from '@angular/router';
 
 @Component({
   selector: 'app-country',
@@ -13,8 +12,7 @@ export class CountryComponent implements OnInit {
   list = ['A', 'B', 'C', 'D', 'E', 'F',
           'G', 'H', 'I', 'J', 'K', 'L',
           'M', 'N', 'O', 'P', 'Q', 'R',
-          'S', 'T', 'U', 'V', 'W', 'X',
-          'Y', 'Z'];
+          'S', 'T', 'U', 'V', 'W', 'Y', 'Z'];
 
   constructor(
     private configService: ConfigService,
@@ -35,10 +33,18 @@ export class CountryComponent implements OnInit {
       }, err => this.error = err);
   }
 
+  /**
+   * Go to the right position in the page
+   * @param letter
+   */
   gotoAnchor(letter: string) {
     document.querySelector('#' + letter).scrollIntoView();
   }
 
+  /**
+   * Classify countries based on first letter
+   * @param letter
+   */
   getCountries(letter: string) {
     const selectedCountry = [];
     for (const country of this.countries) {
