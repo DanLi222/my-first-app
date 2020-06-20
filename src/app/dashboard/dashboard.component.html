@@ -1,4 +1,35 @@
-<nav class="navbar navbar-dark bg-dark">
-  <a class="navbar-brand" href="#" >{{user.name}}</a>
-</nav>
+<mat-grid-list cols="3" rowHeight="100px">
+  <mat-grid-tile>
+    <mat-card class="example-card">
+      {{global$.totalConfirmed ? global$.totalConfirmed : ''}}
+      <mat-card-content>
+        <p>
+          Global Confirmed
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <mat-card class="example-card">
+      {{global$.totalDeath ? global$.totalDeath : ''}}
+      <mat-card-content>
+        <p>
+          Global Death
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <mat-card class="example-card">
+      {{global$.totalRecovered ? global$.totalRecovered : ''}}
+      <mat-card-content>
+        <p>
+          Global Recovered
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
 
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<div *ngIf="error" class="error">{{ error }}</div>

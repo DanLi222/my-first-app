@@ -11,14 +11,29 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   signinForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { }
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    this.createSignInForm();
+  }
+
+  /**
+   * Create sign in form
+   */
+  createSignInForm(): void {
     this.signinForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
+
+  /**
+   * Handle user sign in and store user info in local storage
+   */
   signInWithFB(): void {
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID)
                     .then((user) => {

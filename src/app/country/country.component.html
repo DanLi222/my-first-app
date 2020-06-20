@@ -1,0 +1,24 @@
+<!--Pagination-->
+<nav aria-label="...">
+  <ul class="pagination pagination-m" >
+    <li *ngFor="let letter of list" class="page-item"><a class="page-link" (click)="gotoAnchor(letter)" routerLink="." [fragment]='letter'>{{letter}}</a></li>
+  </ul>
+</nav>
+
+<!--Display all countries based on first letter-->
+<div class="container" *ngFor="let id of list" id="{{id}}">
+  <div class="card text-center m-2" style="width: 2rem; height: 2rem;">
+    <h1 class="card-title text-black-50">{{id}}</h1>
+  </div>
+  <div class="row ml-1" >
+    <div class="col-md-4" *ngFor="let country of getCountries(id)">
+      <p class="card-text" id="{{country}}">
+        <a class="text-light" routerLink="/country/{{country}}">
+          {{country}}
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
+
+
